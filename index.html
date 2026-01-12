@@ -9,6 +9,11 @@
     <script src="https://cdn.jsdelivr.net/gh/hiunicornstudio/unicornstudio.js@v2.0.0/dist/unicornStudio.umd.js"></script>
 </head>
 <body>
+    <!-- Loading spinner -->
+    <div id="loader" class="loader">
+        <div class="spinner"></div>
+    </div>
+
     <!-- Unicorn Studio shader background -->
     <div
         data-us-project="uKyAbgZygQmS065FMKtp"
@@ -67,9 +72,22 @@
         UnicornStudio.init()
             .then((scenes) => {
                 console.log('Unicorn Studio scenes loaded:', scenes);
+                // Hide loader and start content animation
+                const loader = document.getElementById('loader');
+                const content = document.querySelector('.content');
+
+                loader.style.opacity = '0';
+                setTimeout(() => {
+                    loader.style.display = 'none';
+                    content.classList.add('loaded');
+                }, 300);
             })
             .catch((err) => {
                 console.error('Unicorn Studio error:', err);
+                // Hide loader even on error
+                const loader = document.getElementById('loader');
+                loader.style.display = 'none';
+                document.querySelector('.content').classList.add('loaded');
             });
     </script>
     <script src="script.js"></script>
